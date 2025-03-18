@@ -153,6 +153,7 @@ export function Header() {
             <nav className="space-y-4">
               <Link to="/products" className="block text-gray-700 hover:text-green-600">Products</Link>
               <Link to="/sellers" className="block text-gray-700 hover:text-green-600">Sellers</Link>
+              <Link to="/chats" className="block text-gray-700 hover:text-green-600">Chats</Link>
               <Link to="/about" className="block text-gray-700 hover:text-green-600">About</Link>
               <Link to="/contact" className="block text-gray-700 hover:text-green-600">Contact</Link>
               <hr className="my-2" />
