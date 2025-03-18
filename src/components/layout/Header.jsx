@@ -64,7 +64,7 @@ export function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Search */}
-            <form onSubmit={handleSearch} className="relative">
+{/*             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
                 placeholder="Search products..."
@@ -75,7 +75,7 @@ export function Header() {
               <button type="submit" className="absolute right-3 top-1/2 transform -translate-y-1/2">
                 <Search className="h-5 w-5 text-gray-400" />
               </button>
-            </form>
+            </form> */}
 
             {/* Cart */}
             <Link to="/cart" className="p-2 rounded-lg hover:bg-gray-100">
