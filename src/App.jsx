@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { HomePage } from './pages/HomePage';
@@ -26,24 +26,14 @@ import { NotificationsPage } from './pages/NotificationsPage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminOverview } from './pages/admin/AdminOverview';
 import { SellerManagement } from './pages/admin/SellerManagement';
-import { scrollToTop } from './utils/scrollToTop';
 
-function ScrollToTop() {
+function InitialScrollHandler() {
   const location = useLocation();
-  const [previousPath, setPreviousPath] = React.useState('');
 
   useEffect(() => {
-    // Only scroll to top if the path has changed significantly
-    // (e.g., not just query parameters or hash changes)
-    const currentPath = location.pathname;
-    if (currentPath !== previousPath) {
-      // Don't scroll to top for admin routes
-      if (!currentPath.startsWith('/admin')) {
-        scrollToTop();
-      }
-      setPreviousPath(currentPath);
-    }
-  }, [location.pathname, previousPath]);
+    // Scroll to top when the pathname changes
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return null;
 }
@@ -51,7 +41,7 @@ function ScrollToTop() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
+      <InitialScrollHandler />
       <Routes>
         {/* Admin Routes - Without Header and Footer */}
         <Route path="/admin" element={<AdminDashboard />}>
