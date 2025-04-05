@@ -22,7 +22,8 @@ import {
   Trash2,
   FileText,
   ShoppingBag,
-  Tag
+  Tag,
+  Edit2
 } from 'lucide-react';
 
 export function SellerDashboard() {
@@ -30,6 +31,8 @@ export function SellerDashboard() {
   const [orderFilter, setOrderFilter] = useState('all');
   const [dateRange, setDateRange] = useState('week');
   const [searchTerm, setSearchTerm] = useState('');
+  const [productSearchTerm, setProductSearchTerm] = useState('');
+  const [productFilter, setProductFilter] = useState('all');
 
   // Placeholder data - in production, this would come from an API
   const dashboardData = {
@@ -420,20 +423,20 @@ export function SellerDashboard() {
             <input
               type="text"
               placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={productSearchTerm}
+              onChange={(e) => setProductSearchTerm(e.target.value)}
               className="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
             />
           </div>
           <select
             className="border rounded-lg py-2 px-4 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-            value={dateRange}
-            onChange={(e) => setDateRange(e.target.value)}
+            value={productFilter}
+            onChange={(e) => setProductFilter(e.target.value)}
           >
             <option value="all">All Categories</option>
-            <option value="rice">Rice</option>
-            <option value="pulses">Pulses</option>
-            <option value="spices">Spices</option>
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="accessories">Accessories</option>
           </select>
         </div>
         <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2">
@@ -594,100 +597,273 @@ export function SellerDashboard() {
   );
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Seller Dashboard</h1>
-          <p className="text-gray-600 mt-2">Welcome back! Here's what's happening with your store</p>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
-            <Bell className="h-6 w-6" />
-          </button>
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
-            <Settings className="h-6 w-6" />
-          </button>
+      <div className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Seller Dashboard</h1>
+              <p className="text-sm text-gray-600 mt-1">Manage your products and orders</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Bell className="h-5 w-5 text-gray-600" />
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Settings className="h-5 w-5 text-gray-600" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="mb-8 border-b">
-        <nav className="flex space-x-8">
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'overview'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('overview')}
-          >
-            <div className="flex items-center space-x-2">
-              <BarChart2 className="w-4 h-4" />
-              <span>Overview</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'orders'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('orders')}
-          >
-            <div className="flex items-center space-x-2">
-              <Package className="w-4 h-4" />
-              <span>Orders</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'products'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('products')}
-          >
-            <div className="flex items-center space-x-2">
-              <ShoppingBag className="w-4 h-4" />
-              <span>Products</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'customers'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('customers')}
-          >
-            <div className="flex items-center space-x-2">
-              <Users className="w-4 h-4" />
-              <span>Customers</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'analytics'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('analytics')}
-          >
-            <div className="flex items-center space-x-2">
-              <TrendingUp className="w-4 h-4" />
-              <span>Analytics</span>
-            </div>
-          </button>
-        </nav>
+      <div className="bg-white border-b shadow-sm mt-4">
+        <div className="container mx-auto px-4">
+          <div className="flex overflow-x-auto -mb-px">
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'overview'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Overview
+            </button>
+            <button
+              onClick={() => setActiveTab('products')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'products'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Products
+            </button>
+            <button
+              onClick={() => setActiveTab('orders')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'orders'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Orders
+            </button>
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'analytics'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Analytics
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Tab Content */}
-      {activeTab === 'overview' && renderOverviewTab()}
-      {activeTab === 'orders' && renderOrdersTab()}
-      {activeTab === 'products' && renderProductsTab()}
-      {activeTab === 'customers' && renderCustomersTab()}
-      {activeTab === 'analytics' && renderAnalyticsTab()}
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-6">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {/* Total Revenue */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <DollarSign className="h-5 w-5 text-green-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">₹{dashboardData.stats.totalRevenue.toLocaleString()}</h3>
+            <p className="text-sm text-gray-600">Total Revenue</p>
+          </div>
+
+          {/* Active Orders */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <Clock className="h-5 w-5 text-blue-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{dashboardData.stats.activeOrders}</h3>
+            <p className="text-sm text-gray-600">Active Orders</p>
+          </div>
+
+          {/* Total Products */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <Package className="h-5 w-5 text-purple-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{dashboardData.stats.totalProducts}</h3>
+            <p className="text-sm text-gray-600">Total Products</p>
+          </div>
+
+          {/* Low Stock */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-red-100 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-red-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{dashboardData.stats.lowStockProducts}</h3>
+            <p className="text-sm text-gray-600">Low Stock Products</p>
+          </div>
+        </div>
+
+        {/* Recent Orders */}
+        <div className="bg-white rounded-lg shadow mb-6">
+          <div className="p-4 border-b">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h2 className="text-lg font-bold">Recent Orders</h2>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search orders..."
+                    className="w-full sm:w-auto pl-8 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                </div>
+                <select
+                  className="w-full sm:w-auto px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  value={orderFilter}
+                  onChange={(e) => setOrderFilter(e.target.value)}
+                >
+                  <option value="all">All Orders</option>
+                  <option value="pending">Pending</option>
+                  <option value="processing">Processing</option>
+                  <option value="shipped">Shipped</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {dashboardData.recentOrders.map((order) => (
+                      <tr key={order.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{order.id}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{order.customer}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{order.items[0].name}</td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <span className={`inline-flex px-2 py-1 text-xs rounded-full ${getStatusColor(order.status)}`}>
+                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-right font-medium">₹{order.total.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Products List */}
+        <div className="bg-white rounded-lg shadow">
+          <div className="p-4 border-b">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h2 className="text-lg font-bold">Products</h2>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    className="w-full sm:w-auto pl-8 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    value={productSearchTerm}
+                    onChange={(e) => setProductSearchTerm(e.target.value)}
+                  />
+                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                </div>
+                <select
+                  className="w-full sm:w-auto px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  value={productFilter}
+                  onChange={(e) => setProductFilter(e.target.value)}
+                >
+                  <option value="all">All Categories</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="accessories">Accessories</option>
+                </select>
+                <button className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                  Add Product
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Price</th>
+                      <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {dashboardData.topProducts.map((product) => (
+                      <tr key={product.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="h-10 w-10 flex-shrink-0">
+                              <img className="h-10 w-10 rounded-lg object-cover" src={product.image} alt={product.name} />
+                            </div>
+                            <div className="ml-4">
+                              <div className="text-sm font-medium text-gray-900">{product.name}</div>
+                              <div className="text-sm text-gray-500">{product.category}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{product.category}</td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <span className={`inline-flex px-2 py-1 text-xs rounded-full ${getStatusColor(product.status)}`}>
+                            {product.stock} units
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-right font-medium">₹{product.price.toLocaleString()}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-center">
+                          <div className="flex justify-center space-x-2">
+                            <button className="p-1 text-blue-600 hover:text-blue-900">
+                              <Edit2 className="h-4 w-4" />
+                            </button>
+                            <button className="p-1 text-red-600 hover:text-red-900">
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 } 

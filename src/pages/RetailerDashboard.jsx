@@ -242,164 +242,165 @@ export function RetailerDashboard() {
         return (
           <>
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {/* Active Orders */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="p-2 bg-blue-100 rounded-lg">
-                    <Clock className="h-6 w-6 text-blue-600" />
+                    <Clock className="h-5 w-5 text-blue-600" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold">{retailerData.activeOrders}</h3>
-                <p className="text-gray-600">Active Orders</p>
+                <h3 className="text-xl font-bold">{retailerData.activeOrders}</h3>
+                <p className="text-sm text-gray-600">Active Orders</p>
               </div>
 
               {/* Past Orders */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="p-2 bg-green-100 rounded-lg">
-                    <CheckCircle className="h-6 w-6 text-green-600" />
+                    <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold">{retailerData.pastOrders}</h3>
-                <p className="text-gray-600">Past Orders</p>
+                <h3 className="text-xl font-bold">{retailerData.pastOrders}</h3>
+                <p className="text-sm text-gray-600">Past Orders</p>
               </div>
 
               {/* Pending Deliveries */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="p-2 bg-yellow-100 rounded-lg">
-                    <Package className="h-6 w-6 text-yellow-600" />
+                    <Package className="h-5 w-5 text-yellow-600" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold">{retailerData.pendingDeliveries}</h3>
-                <p className="text-gray-600">Pending Deliveries</p>
+                <h3 className="text-xl font-bold">{retailerData.pendingDeliveries}</h3>
+                <p className="text-sm text-gray-600">Pending Deliveries</p>
               </div>
 
               {/* Restock Needed */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center justify-between mb-4">
+              <div className="bg-white rounded-lg shadow p-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="p-2 bg-red-100 rounded-lg">
-                    <AlertTriangle className="h-6 w-6 text-red-600" />
+                    <AlertTriangle className="h-5 w-5 text-red-600" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold">{retailerData.restockNeeded}</h3>
-                <p className="text-gray-600">Restock Needed</p>
+                <h3 className="text-xl font-bold">{retailerData.restockNeeded}</h3>
+                <p className="text-sm text-gray-600">Restock Needed</p>
               </div>
             </div>
 
             {/* Recent Orders and Restock Recommendations */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Recent Orders */}
-              <div className="bg-white rounded-lg shadow">
-                <div className="p-6 border-b">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-bold">Recent Orders</h2>
-                    <div className="flex items-center space-x-2">
-                      <div className="relative">
-                        <select
-                          className="appearance-none bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-                          value={orderFilter}
-                          onChange={(e) => setOrderFilter(e.target.value)}
-                        >
-                          <option value="all">All Orders</option>
-                          <option value="in-transit">In Transit</option>
-                          <option value="processing">Processing</option>
-                          <option value="delivered">Delivered</option>
-                        </select>
-                        <ArrowDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  {filteredOrders.map((order) => (
-                    <div
-                      key={order.id}
-                      className="flex items-center justify-between py-3 border-b last:border-0"
-                    >
-                      <div>
-                        <h3 className="font-medium">{order.product}</h3>
-                        <p className="text-sm text-gray-600">
-                          {order.seller} • {order.quantity}
-                        </p>
-                        <p className="text-sm text-gray-500">{order.id}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-medium">₹{order.amount.toLocaleString()}</p>
-                        <span
-                          className={`text-sm px-2 py-1 rounded ${getStatusColor(
-                            order.status
-                          )}`}
-                        >
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
-                        <p className="text-sm text-gray-500 mt-1">
-                          {order.status === 'delivered'
-                            ? `Delivered: ${order.deliveredDate}`
-                            : `Expected: ${order.expectedDelivery}`}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                  {filteredOrders.length === 0 && (
-                    <p className="text-center text-gray-500 py-4">No orders found</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Restock Recommendations */}
-              <div className="bg-white rounded-lg shadow">
-                <div className="p-6 border-b">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-bold">Restock Recommendations</h2>
+            <div className="bg-white rounded-lg shadow mb-6">
+              <div className="p-4 border-b">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <h2 className="text-lg font-bold">Recent Orders</h2>
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <div className="relative">
                       <input
                         type="text"
-                        placeholder="Search products..."
-                        className="bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                        placeholder="Search orders..."
+                        className="w-full sm:w-auto pl-8 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
-                      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     </div>
+                    <select
+                      className="w-full sm:w-auto px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                      value={orderFilter}
+                      onChange={(e) => setOrderFilter(e.target.value)}
+                    >
+                      <option value="all">All Orders</option>
+                      <option value="in-transit">In Transit</option>
+                      <option value="processing">Processing</option>
+                      <option value="delivered">Delivered</option>
+                    </select>
                   </div>
                 </div>
-                <div className="p-6">
-                  {filteredRecommendations.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-between py-3 border-b last:border-0"
-                    >
-                      <div>
-                        <h3 className="font-medium">{item.product}</h3>
-                        <p className="text-sm text-gray-600">
-                          Current Stock: {item.currentStock}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          Monthly Demand: {item.averageMonthlyDemand}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span
-                          className={`text-sm px-2 py-1 rounded ${getPriorityColor(
-                            item.priority
-                          )}`}
-                        >
-                          {item.priority.charAt(0).toUpperCase() + item.priority.slice(1)} Priority
-                        </span>
-                        <p className="text-sm text-gray-600 mt-1">
-                          Recommended: {item.recommendedStock}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          Last Order: {item.lastOrderDate}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                  {filteredRecommendations.length === 0 && (
-                    <p className="text-center text-gray-500 py-4">No products found</p>
-                  )}
+              </div>
+              <div className="overflow-x-auto">
+                <div className="inline-block min-w-full align-middle">
+                  <div className="overflow-hidden">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Seller</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                          <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {filteredOrders.map((order) => (
+                          <tr key={order.id} className="hover:bg-gray-50">
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{order.id}</td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{order.product}</td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{order.seller}</td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <span className={`inline-flex px-2 py-1 text-xs rounded-full ${getStatusColor(order.status)}`}>
+                                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-right font-medium">₹{order.amount.toLocaleString()}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Restock Recommendations */}
+            <div className="bg-white rounded-lg shadow">
+              <div className="p-4 border-b">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <h2 className="text-lg font-bold">Restock Recommendations</h2>
+                  <select
+                    className="w-full sm:w-auto px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    value={inventoryFilter}
+                    onChange={(e) => setInventoryFilter(e.target.value)}
+                  >
+                    <option value="all">All Priorities</option>
+                    <option value="high">High Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="low">Low Priority</option>
+                  </select>
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <div className="inline-block min-w-full align-middle">
+                  <div className="overflow-hidden">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Current Stock</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Recommended</th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Priority</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {filteredRecommendations.map((item) => (
+                          <tr key={item.id} className="hover:bg-gray-50">
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <div>
+                                <div className="text-sm font-medium text-gray-900">{item.product}</div>
+                                <div className="text-sm text-gray-500">Last order: {item.lastOrderDate}</div>
+                              </div>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{item.currentStock}</td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{item.recommendedStock}</td>
+                            <td className="px-4 py-3 whitespace-nowrap">
+                              <span className={`inline-flex px-2 py-1 text-xs rounded-full ${getPriorityColor(item.priority)}`}>
+                                {item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -418,7 +419,7 @@ export function RetailerDashboard() {
                       <input
                         type="text"
                         placeholder="Search orders..."
-                        className="bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="bg-gray-50 border border-gray-300 rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                       />
@@ -807,112 +808,251 @@ export function RetailerDashboard() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Retailer Dashboard</h1>
-          <p className="text-gray-600 mt-2">Monitor market trends and make informed decisions</p>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
-            <Bell className="h-6 w-6" />
-          </button>
-          <button className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg">
-            <Settings className="h-6 w-6" />
-          </button>
+      <div className="bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Retailer Dashboard</h1>
+              <p className="text-sm text-gray-600 mt-1">Monitor your business performance</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Bell className="h-5 w-5 text-gray-600" />
+              </button>
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Settings className="h-5 w-5 text-gray-600" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Navigation Tabs */}
-      <div className="mb-8 border-b">
-        <nav className="flex space-x-8">
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'overview'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('overview')}
-          >
-            <div className="flex items-center space-x-2">
-              <BarChart2 className="w-4 h-4" />
-              <span>Overview</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'price-trends'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('price-trends')}
-          >
-            <div className="flex items-center space-x-2">
-              <LineChart className="w-4 h-4" />
-              <span>Price Trends</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'market-insights'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('market-insights')}
-          >
-            <div className="flex items-center space-x-2">
-              <TrendingUp className="w-4 h-4" />
-              <span>Market Insights</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'orders'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('orders')}
-          >
-            <div className="flex items-center space-x-2">
-              <List className="w-4 h-4" />
-              <span>Orders</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'inventory'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('inventory')}
-          >
-            <div className="flex items-center space-x-2">
-              <Package className="w-4 h-4" />
-              <span>Inventory</span>
-            </div>
-          </button>
-          <button
-            className={`pb-4 px-2 font-medium text-sm transition-colors relative ${
-              activeTab === 'alerts'
-                ? 'text-green-600 border-b-2 border-green-600'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab('alerts')}
-          >
-            <div className="flex items-center space-x-2">
-              <Bell className="w-4 h-4" />
-              <span>Alerts</span>
-              <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                3
-              </span>
-            </div>
-          </button>
-        </nav>
+      <div className="bg-white border-b shadow-sm mt-4">
+        <div className="container mx-auto px-4">
+          <div className="flex overflow-x-auto -mb-px">
+            <button
+              onClick={() => setActiveTab('overview')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'overview'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Overview
+            </button>
+            <button
+              onClick={() => setActiveTab('orders')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'orders'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Orders
+            </button>
+            <button
+              onClick={() => setActiveTab('inventory')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'inventory'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Inventory
+            </button>
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'analytics'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Analytics
+            </button>
+            <button
+              onClick={() => setActiveTab('alerts')}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 ${
+                activeTab === 'alerts'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Alerts
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Tab Content */}
-      {renderTabContent()}
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-6">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {/* Active Orders */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <Clock className="h-5 w-5 text-blue-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{retailerData.activeOrders}</h3>
+            <p className="text-sm text-gray-600">Active Orders</p>
+          </div>
+
+          {/* Past Orders */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-green-100 rounded-lg">
+                <CheckCircle className="h-5 w-5 text-green-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{retailerData.pastOrders}</h3>
+            <p className="text-sm text-gray-600">Past Orders</p>
+          </div>
+
+          {/* Pending Deliveries */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-yellow-100 rounded-lg">
+                <Package className="h-5 w-5 text-yellow-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{retailerData.pendingDeliveries}</h3>
+            <p className="text-sm text-gray-600">Pending Deliveries</p>
+          </div>
+
+          {/* Restock Needed */}
+          <div className="bg-white rounded-lg shadow p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 bg-red-100 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-red-600" />
+              </div>
+            </div>
+            <h3 className="text-xl font-bold">{retailerData.restockNeeded}</h3>
+            <p className="text-sm text-gray-600">Restock Needed</p>
+          </div>
+        </div>
+
+        {/* Orders Section */}
+        <div className="bg-white rounded-lg shadow mb-6">
+          <div className="p-4 border-b">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h2 className="text-lg font-bold">Recent Orders</h2>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search orders..."
+                    className="w-full sm:w-auto pl-8 pr-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                </div>
+                <select
+                  className="w-full sm:w-auto px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  value={orderFilter}
+                  onChange={(e) => setOrderFilter(e.target.value)}
+                >
+                  <option value="all">All Orders</option>
+                  <option value="in-transit">In Transit</option>
+                  <option value="processing">Processing</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Seller</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {filteredOrders.map((order) => (
+                      <tr key={order.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{order.id}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">{order.product}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{order.seller}</td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <span className={`inline-flex px-2 py-1 text-xs rounded-full ${getStatusColor(order.status)}`}>
+                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-right font-medium">₹{order.amount.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Restock Recommendations */}
+        <div className="bg-white rounded-lg shadow">
+          <div className="p-4 border-b">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <h2 className="text-lg font-bold">Restock Recommendations</h2>
+              <select
+                className="w-full sm:w-auto px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                value={inventoryFilter}
+                onChange={(e) => setInventoryFilter(e.target.value)}
+              >
+                <option value="all">All Priorities</option>
+                <option value="high">High Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="low">Low Priority</option>
+              </select>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Current Stock</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Recommended</th>
+                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Priority</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {filteredRecommendations.map((item) => (
+                      <tr key={item.id} className="hover:bg-gray-50">
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">{item.product}</div>
+                            <div className="text-sm text-gray-500">Last order: {item.lastOrderDate}</div>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{item.currentStock}</td>
+                        <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">{item.recommendedStock}</td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <span className={`inline-flex px-2 py-1 text-xs rounded-full ${getPriorityColor(item.priority)}`}>
+                            {item.priority.charAt(0).toUpperCase() + item.priority.slice(1)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 } 

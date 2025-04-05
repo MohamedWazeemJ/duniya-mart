@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, TrendingUp, ShieldCheck, Truck, Star, Flame, Clock, Tag } from 'lucide-react';
+import { Search, TrendingUp, ShieldCheck, Truck, Star, Flame, Clock, Tag, ShoppingCart, ChevronDown } from 'lucide-react';
 import { formatPrice } from '../lib/utils';
 
 export function HomePage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('trending');
   const [searchQuery, setSearchQuery] = useState('');
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   const categories = [
     { name: 'Staples', image: 'https://images.unsplash.com/photo-1558818498-28c1e002b655?auto=format&fit=crop&q=80&w=400' },
@@ -112,6 +113,33 @@ export function HomePage() {
       category: 'Vegetables',
     },
   ];
+
+  const faqs = [
+    {
+      question: "Is Duniya Mart free to use?",
+      answer: "Yes, Duniya Mart is completely free for buyers. Sellers pay a small commission on successful transactions."
+    },
+    {
+      question: "How do I register as a seller?",
+      answer: "To register as a seller, click on 'Register as Wholesaler' and complete the verification process. Our team will review your application within 24-48 hours."
+    },
+    {
+      question: "Can small retailers place orders?",
+      answer: "Yes, we welcome retailers of all sizes. Our platform offers flexible order quantities to accommodate different business needs."
+    },
+    {
+      question: "How is delivery arranged?",
+      answer: "Delivery is handled by our trusted logistics partners. Sellers can choose to handle their own delivery or use our logistics network."
+    },
+    {
+      question: "What support does Duniya Mart offer?",
+      answer: "We offer 24/7 customer support, dispute resolution, and business advisory services to help you grow your business."
+    }
+  ];
+
+  const toggleFaq = (index) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
 
   const renderFeaturedProducts = () => {
     switch (activeTab) {
@@ -277,8 +305,44 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Browse Products</h3>
+              <p className="text-gray-600">
+                Explore our extensive catalog of wholesale products from verified suppliers across India
+              </p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ShoppingCart className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Contact Sellers & Place Orders</h3>
+              <p className="text-gray-600">
+                Connect with sellers, negotiate prices, and place bulk orders with ease
+              </p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Truck className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Receive Delivery</h3>
+              <p className="text-gray-600">
+                Get your orders delivered safely to your doorstep with our reliable logistics network
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Categories Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Popular Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -303,7 +367,7 @@ export function HomePage() {
       </section>
 
       {/* Featured Products Section */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Featured Products</h2>
           
@@ -349,7 +413,7 @@ export function HomePage() {
       </section>
 
       {/* Top Sellers Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-bold">Top Sellers</h2>
@@ -392,7 +456,7 @@ export function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Why Choose GrocerTrade?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -407,9 +471,163 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=100"
+                  alt="Shyam Traders"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold">Shyam Traders</h3>
+                  <p className="text-sm text-gray-600">Jaipur, Rajasthan</p>
+                </div>
+              </div>
+              <p className="text-gray-600">
+                "Duniya Mart has transformed our wholesale business. The platform is easy to use, and we've found reliable suppliers for all our needs."
+              </p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100"
+                  alt="Priya Foods"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold">Priya Foods</h3>
+                  <p className="text-sm text-gray-600">Mumbai, Maharashtra</p>
+                </div>
+              </div>
+              <p className="text-gray-600">
+                "As a small retailer, Duniya Mart has helped us compete with larger stores by providing access to wholesale prices and quality products."
+              </p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100"
+                  alt="Amit Grocery"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="font-semibold">Amit Grocery</h3>
+                  <p className="text-sm text-gray-600">Delhi, NCR</p>
+                </div>
+              </div>
+              <p className="text-gray-600">
+                "The customer support is excellent, and the delivery is always on time. We've been able to expand our product range significantly."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+              <div key={index} className="border rounded-lg overflow-hidden">
+                <button 
+                  onClick={() => toggleFaq(index)}
+                  className="w-full p-6 text-left bg-gray-50 hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-semibold text-lg">{faq.question}</h3>
+                    <ChevronDown 
+                      className={`w-5 h-5 transition-transform duration-200 ${
+                        openFaqIndex === index ? 'transform rotate-180' : ''
+                      }`}
+                    />
+                  </div>
+                </button>
+                <div 
+                  className={`transition-all duration-200 ${
+                    openFaqIndex === index ? 'block' : 'hidden'
+                  }`}
+                >
+                  <div className="p-6 bg-white">
+                    <p className="text-gray-600">{faq.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-3xl font-bold">Market Insights</h2>
+            <Link to="/blog" className="text-green-600 hover:text-green-700 font-semibold">
+              View All Articles
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=500"
+                alt="5 Tips for First-Time Wholesale Buyers"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">5 Tips for First-Time Wholesale Buyers</h3>
+                <p className="text-gray-600 mb-4">
+                  Learn essential strategies for making your first wholesale purchase a success.
+                </p>
+                <Link to="/blog/first-time-wholesale-buyers" className="text-green-600 hover:text-green-700 font-semibold">
+                  Read More →
+                </Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=500"
+                alt="Understanding Wholesale Pricing"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Understanding Wholesale Pricing</h3>
+                <p className="text-gray-600 mb-4">
+                  A comprehensive guide to wholesale pricing structures and how to get the best deals.
+                </p>
+                <Link to="/blog/wholesale-pricing" className="text-green-600 hover:text-green-700 font-semibold">
+                  Read More →
+                </Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1515942400420-2b98fed1f515?auto=format&fit=crop&q=80&w=500"
+                alt="Building Supplier Relationships"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Building Supplier Relationships</h3>
+                <p className="text-gray-600 mb-4">
+                  Discover how to build and maintain strong relationships with your suppliers.
+                </p>
+                <Link to="/blog/supplier-relationships" className="text-green-600 hover:text-green-700 font-semibold">
+                  Read More →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-16 bg-green-600 text-white">
-        <div className="container mx-auto px-4 text-center">
+      <section className="bg-green-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Grow Your Business?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join thousands of retailers and wholesalers who trust GrocerTrade for their business needs
