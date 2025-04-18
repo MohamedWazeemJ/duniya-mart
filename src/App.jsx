@@ -34,7 +34,7 @@ import { SupportManagement } from './pages/admin/SupportManagement';
 import { Marketing } from './pages/admin/Marketing';
 import { Reports } from './pages/admin/Reports';
 import { Settings as AdminSettings } from './pages/admin/Settings';
-import { RequireAdmin } from './components/auth/RequireAdmin';
+import { RequireAdmin, RequireAuth } from './components/auth/RequireAdmin';
 import { BusinessSupport } from './pages/BusinessSupport';
 import { Advertise } from './pages/Advertise';
 
@@ -92,7 +92,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart" element={<RequireAuth><CartPage /></RequireAuth>} />
           <Route path="/sellers" element={<SellerListingPage />} />
           <Route path="/seller/:id" element={<SellerProfilePage />} />
           <Route path="/blog" element={<BlogListingPage />} />
@@ -100,15 +100,15 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faqs" element={<FAQPage />} />
-          <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/notifications" element={<RequireAuth><NotificationsPage /></RequireAuth>} />
           <Route path="/business/support" element={<BusinessSupport />} />
           <Route path="/advertise" element={<Advertise />} />
 
           {/* User Dashboard Routes */}
-          <Route path="/seller/dashboard" element={<SellerDashboard />} />
-          <Route path="/retailer/dashboard" element={<RetailerDashboard />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/seller/dashboard" element={<RequireAuth><SellerDashboard /></RequireAuth>} />
+          <Route path="/retailer/dashboard" element={<RequireAuth><RetailerDashboard /></RequireAuth>} />
+          <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/settings" element={<RequireAuth><SettingsPage /></RequireAuth>} />
           <Route path="/search" element={<SearchPage />} />
         </Route>
       </Routes>

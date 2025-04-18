@@ -7,57 +7,103 @@ export function SellerProfilePage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Placeholder data - in production, this would be fetched based on the seller ID
-  const seller = {
-    id: 1,
-    name: 'Royal Foods Wholesale',
-    description: 'Leading wholesale supplier of premium quality groceries and staples.',
-    rating: 4.8,
-    totalOrders: 1500,
-    joinedDate: '2022',
-    verified: true,
-    location: 'Mumbai, Maharashtra',
-    categories: ['Staples', 'Pulses', 'Spices', 'Oils'],
-    metrics: {
-      orderFulfillment: '99%',
-      responseTime: '2 hours',
-      deliveryTime: '2-3 days',
+  // Add missing state for search and filter
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  // Placeholder sellers data (should match SellerListingPage)
+  const sellers = [
+    {
+      id: '1',
+      name: 'Royal Foods Wholesale',
+      description: 'Leading wholesale supplier of premium quality groceries and staples.',
+      rating: 4.8,
+      totalOrders: 1500,
+      joinedDate: '2022',
+      verified: true,
+      location: 'Mumbai, Maharashtra',
+      categories: ['Staples', 'Pulses', 'Spices', 'Oils'],
+      metrics: {
+        orderFulfillment: '99%',
+        responseTime: '2 hours',
+        deliveryTime: '2-3 days',
+      },
+      products: [
+        {
+          id: '1',
+          name: 'Premium Basmati Rice',
+          price: 2500,
+          moq: 100,
+          image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=300',
+          category: 'Staples',
+        },
+        {
+          id: '2',
+          name: 'Organic Turmeric Powder',
+          price: 1200,
+          moq: 50,
+          image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=300',
+          category: 'Spices',
+        },
+        {
+          id: '3',
+          name: 'Premium Toor Dal',
+          price: 1800,
+          moq: 75,
+          image: 'https://images.unsplash.com/photo-1515942400420-2b98fed1f515?auto=format&fit=crop&q=80&w=300',
+          category: 'Pulses',
+        },
+        {
+          id: '4',
+          name: 'Virgin Coconut Oil',
+          price: 3500,
+          moq: 50,
+          image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=300',
+          category: 'Oils',
+        },
+      ],
     },
-    products: [
-      {
-        id: '1',
-        name: 'Premium Basmati Rice',
-        price: 2500,
-        moq: 100,
-        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=300',
-        category: 'Staples',
+    {
+      id: '2',
+      name: 'Spice Masters Trading',
+      description: 'Specialists in premium spices, dry fruits, and herbs.',
+      rating: 4.6,
+      totalOrders: 1200,
+      joinedDate: '2021',
+      verified: false,
+      location: 'Delhi',
+      categories: ['Spices', 'Dry Fruits', 'Herbs'],
+      metrics: {
+        orderFulfillment: '97%',
+        responseTime: '3 hours',
+        deliveryTime: '3-4 days',
       },
-      {
-        id: '2',
-        name: 'Organic Turmeric Powder',
-        price: 1200,
-        moq: 50,
-        image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=300',
-        category: 'Spices',
+      products: [], // Add products as needed
+    },
+    {
+      id: '3',
+      name: 'Fresh Produce Hub',
+      description: 'Your source for fresh fruits, vegetables, and organic products.',
+      rating: 4.7,
+      totalOrders: 1800,
+      joinedDate: '2020',
+      verified: true,
+      location: 'Bangalore',
+      categories: ['Vegetables', 'Fruits', 'Organic Products'],
+      metrics: {
+        orderFulfillment: '98%',
+        responseTime: '1 hour',
+        deliveryTime: '1-2 days',
       },
-      {
-        id: '3',
-        name: 'Premium Toor Dal',
-        price: 1800,
-        moq: 75,
-        image: 'https://images.unsplash.com/photo-1515942400420-2b98fed1f515?auto=format&fit=crop&q=80&w=300',
-        category: 'Pulses',
-      },
-      {
-        id: '4',
-        name: 'Virgin Coconut Oil',
-        price: 3500,
-        moq: 50,
-        image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=300',
-        category: 'Oils',
-      },
-    ],
-  };
+      products: [], // Add products as needed
+    },
+  ];
+
+  // Find the seller by id
+  const seller = sellers.find(s => s.id === id);
+  if (!seller) {
+    return <div className="container mx-auto px-4 py-8">Seller not found.</div>;
+  }
 
   const filteredProducts = seller.products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -162,10 +208,10 @@ export function SellerProfilePage() {
                 <p className="text-sm text-gray-600 mt-2">MOQ: {product.moq} kg</p>
                 <div className="flex gap-2 mt-4">
                   <Link
-                    to={`/seller/${seller.id}`}
-                    className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 text-sm text-center"
+                    to={`/product/${product.id}`}
+                    className="mt-4 block w-full bg-green-600 text-white text-center py-2 rounded-lg hover:bg-green-700"
                   >
-                    View Store
+                    View Details
                   </Link>
                 </div>
               </div>

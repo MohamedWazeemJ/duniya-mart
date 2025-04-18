@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, ShoppingCart, User, ChevronDown } from 'lucide-react';
+import { Menu, X, Search, ShoppingCart, User } from 'lucide-react';
 import { Notifications } from '../notifications/Notifications';
 
 export function Header() {
@@ -10,6 +10,9 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const dashboardRef = useRef(null);
+
+  // Check if user is logged in
+  const user = localStorage.getItem('user');
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -68,46 +71,50 @@ export function Header() {
               <ShoppingCart className="h-6 w-6" />
             </Link>
 
-            {/* Dashboard Dropdown */}
-            <div className="relative" ref={dashboardRef}>
-              <button
-                className="flex items-center space-x-1 p-2 rounded-lg hover:bg-gray-100"
-                onClick={() => setIsDashboardOpen(!isDashboardOpen)}
-              >
-                <User className="h-6 w-6" />
-                <ChevronDown className="h-4 w-4" />
-              </button>
-
-              {isDashboardOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
-                  <button
-                    onClick={() => handleDashboardSelect('/retailer/dashboard')}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  >
-                    Dashboard
-                  </button>
-                  <button
-                    onClick={() => handleDashboardSelect('/profile')}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  >
-                    Profile
-                  </button>
-                  <button
-                    onClick={() => handleDashboardSelect('/settings')}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                  >
-                    Settings
-                  </button>
-                  <hr className="my-2" />
-                  <button
-                    onClick={() => handleDashboardSelect('/logout')}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* Show dashboard/profile dropdown if logged in, else show Login button */}
+            {user ? (
+              <div className="relative" ref={dashboardRef}>
+                <button
+                  className="flex items-center space-x-1 p-2 rounded-lg hover:bg-gray-100"
+                  onClick={() => setIsDashboardOpen(!isDashboardOpen)}
+                >
+                  <User className="h-6 w-6" />
+                </button>
+                {isDashboardOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+                    <button
+                      onClick={() => handleDashboardSelect('/retailer/dashboard')}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Dashboard
+                    </button>
+                    <button
+                      onClick={() => handleDashboardSelect('/profile')}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Profile
+                    </button>
+                    <button
+                      onClick={() => handleDashboardSelect('/settings')}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Settings
+                    </button>
+                    <hr className="my-2" />
+                    <button
+                      onClick={() => handleDashboardSelect('/logout')}
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/login" className="p-2 rounded-lg hover:bg-gray-100 text-green-600 font-semibold">
+                Login
+              </Link>
+            )}
           </div>
         </div>
 

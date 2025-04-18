@@ -194,15 +194,10 @@ export function SellerListingPage() {
               <div className="flex gap-2 mt-4">
                 <Link
                   to={`/seller/${seller.id}`}
-                  className="flex-1 bg-gray-100 text-gray-700 text-center py-2 rounded-lg hover:bg-gray-200"
+                  className="flex-1 bg-gray-100 text-gray-700 text-center py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  aria-label={`View profile of ${seller.name}`}
                 >
                   View Seller
-                </Link>
-                <Link
-                  to={`/chat/${seller.id}`}
-                  className="flex-1 bg-green-600 text-white text-center py-2 rounded-lg hover:bg-green-700"
-                >
-                  Contact
                 </Link>
               </div>
             </div>

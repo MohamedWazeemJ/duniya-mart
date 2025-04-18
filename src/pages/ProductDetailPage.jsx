@@ -1,47 +1,158 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ShieldCheck, Star, Package, Truck, Info, MessageCircle, Filter, Search } from 'lucide-react';
 import { formatPrice } from '../lib/utils';
 
 export function ProductDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(100);
 
-  // Placeholder data - in production, this would be fetched based on the product ID
-  const product = {
-    id: '1',
-    name: 'Premium Basmati Rice',
-    description: 'High-quality aged basmati rice with long grains and aromatic flavor. Perfect for restaurants and bulk buyers.',
-    price: 2500,
-    moq: 100,
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=800',
-    category: 'Staples',
-    seller: {
-      id: 1,
-      name: 'Royal Foods Wholesale',
-      rating: 4.8,
-      verified: true,
-      totalOrders: 1500,
+  // Check if user is logged in
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  // Placeholder products array
+  const products = [
+    {
+      id: '1',
+      name: 'Premium Basmati Rice',
+      description: 'High-quality aged basmati rice with long grains and aromatic flavor. Perfect for restaurants and bulk buyers.',
+      price: 2500,
+      moq: 100,
+      image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=800',
+      category: 'Staples',
+      seller: {
+        id: 1,
+        name: 'Royal Foods Wholesale',
+        rating: 4.8,
+        verified: true,
+        totalOrders: 1500,
+      },
+      specifications: {
+        brand: 'Royal Foods',
+        packaging: 'HDPE Bags',
+        shelfLife: '24 months',
+        origin: 'Punjab, India',
+        certification: 'FSSAI, ISO 22000',
+      },
+      bulkPricing: [
+        { minQuantity: 100, price: 2500 },
+        { minQuantity: 500, price: 2300 },
+        { minQuantity: 1000, price: 2100 },
+        { minQuantity: 5000, price: 1900 },
+      ],
+      shipping: {
+        estimatedDays: '2-3',
+        freeAbove: 5000,
+        locations: 'Pan India',
+      }
     },
-    specifications: {
-      brand: 'Royal Foods',
-      packaging: 'HDPE Bags',
-      shelfLife: '24 months',
-      origin: 'Punjab, India',
-      certification: 'FSSAI, ISO 22000',
+    {
+      id: '2',
+      name: 'Organic Turmeric Powder',
+      description: 'Pure, organic turmeric powder for culinary and medicinal use.',
+      price: 1200,
+      moq: 50,
+      image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=800',
+      category: 'Spices',
+      seller: {
+        id: 2,
+        name: 'Spice Masters Trading',
+        rating: 4.6,
+        verified: false,
+        totalOrders: 1200,
+      },
+      specifications: {
+        brand: 'Spice Masters',
+        packaging: 'Pouches',
+        shelfLife: '18 months',
+        origin: 'Kerala, India',
+        certification: 'FSSAI',
+      },
+      bulkPricing: [
+        { minQuantity: 50, price: 1200 },
+        { minQuantity: 200, price: 1100 },
+        { minQuantity: 500, price: 1000 },
+      ],
+      shipping: {
+        estimatedDays: '3-5',
+        freeAbove: 3000,
+        locations: 'Pan India',
+      }
     },
-    bulkPricing: [
-      { minQuantity: 100, price: 2500 },
-      { minQuantity: 500, price: 2300 },
-      { minQuantity: 1000, price: 2100 },
-      { minQuantity: 5000, price: 1900 },
-    ],
-    shipping: {
-      estimatedDays: '2-3',
-      freeAbove: 5000,
-      locations: 'Pan India',
-    }
-  };
+    {
+      id: '3',
+      name: 'Premium Toor Dal',
+      description: 'High-quality toor dal, rich in protein and taste.',
+      price: 1800,
+      moq: 75,
+      image: 'https://images.unsplash.com/photo-1515942400420-2b98fed1f515?auto=format&fit=crop&q=80&w=800',
+      category: 'Pulses',
+      seller: {
+        id: 1,
+        name: 'Royal Foods Wholesale',
+        rating: 4.8,
+        verified: true,
+        totalOrders: 1500,
+      },
+      specifications: {
+        brand: 'Royal Foods',
+        packaging: 'HDPE Bags',
+        shelfLife: '12 months',
+        origin: 'Maharashtra, India',
+        certification: 'FSSAI',
+      },
+      bulkPricing: [
+        { minQuantity: 75, price: 1800 },
+        { minQuantity: 300, price: 1700 },
+        { minQuantity: 1000, price: 1600 },
+      ],
+      shipping: {
+        estimatedDays: '2-4',
+        freeAbove: 4000,
+        locations: 'Pan India',
+      }
+    },
+    {
+      id: '4',
+      name: 'Virgin Coconut Oil',
+      description: 'Cold-pressed virgin coconut oil, perfect for cooking and skincare.',
+      price: 3500,
+      moq: 50,
+      image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80&w=800',
+      category: 'Oils',
+      seller: {
+        id: 3,
+        name: 'Fresh Produce Hub',
+        rating: 4.7,
+        verified: true,
+        totalOrders: 1800,
+      },
+      specifications: {
+        brand: 'Fresh Produce',
+        packaging: 'Glass Bottles',
+        shelfLife: '24 months',
+        origin: 'Kerala, India',
+        certification: 'FSSAI',
+      },
+      bulkPricing: [
+        { minQuantity: 50, price: 3500 },
+        { minQuantity: 200, price: 3300 },
+        { minQuantity: 500, price: 3100 },
+      ],
+      shipping: {
+        estimatedDays: '3-6',
+        freeAbove: 6000,
+        locations: 'Pan India',
+      }
+    },
+  ];
+
+  // Find the product by id
+  const product = products.find(p => p.id === id);
+  if (!product) {
+    return <div className="container mx-auto px-4 py-8">Product not found.</div>;
+  }
 
   const getCurrentPrice = () => {
     const applicableTier = product.bulkPricing
@@ -56,6 +167,15 @@ export function ProductDetailPage() {
     if (value >= product.moq) {
       setQuantity(value);
     }
+  };
+
+  const handleAddToCart = () => {
+    if (!user) {
+      navigate('/login', { state: { from: window.location.pathname } });
+      return;
+    }
+    // Add to cart logic here (placeholder)
+    alert('Added to cart!');
   };
 
   return (
@@ -127,7 +247,10 @@ export function ProductDetailPage() {
               </div>
 
               <div className="flex space-x-4">
-                <button className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
+                <button
+                  className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700"
+                  onClick={handleAddToCart}
+                >
                   Add to Cart
                 </button>
               </div>
@@ -155,7 +278,6 @@ export function ProductDetailPage() {
                   <span>{product.seller.totalOrders}+ orders</span>
                 </div>
               </div>
-              <MessageCircle className="h-6 w-6 text-green-600" />
             </div>
           </Link>
         </div>

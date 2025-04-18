@@ -17,4 +17,16 @@ export function RequireAdmin({ children }) {
   }
 
   return children;
+}
+
+// Generic RequireAuth for any logged-in user
+export function RequireAuth({ children }) {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const location = useLocation();
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
 } 
