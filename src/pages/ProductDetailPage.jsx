@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ShieldCheck, Star, Package, Truck, Info, MessageCircle } from 'lucide-react';
+import { ShieldCheck, Star, Package, Truck, Info, MessageCircle, Filter, Search } from 'lucide-react';
 import { formatPrice } from '../lib/utils';
-import { ChatWindow } from '../components/chat/ChatWindow';
 
 export function ProductDetailPage() {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(100);
-  const [showChat, setShowChat] = useState(false);
 
   // Placeholder data - in production, this would be fetched based on the product ID
   const product = {
@@ -132,12 +130,6 @@ export function ProductDetailPage() {
                 <button className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700">
                   Add to Cart
                 </button>
-                <button 
-                  onClick={() => setShowChat(true)}
-                  className="flex-1 border border-green-600 text-green-600 px-6 py-3 rounded-lg hover:bg-green-50"
-                >
-                  Contact Seller
-                </button>
               </div>
             </div>
           </div>
@@ -237,23 +229,6 @@ export function ProductDetailPage() {
           </div>
         </div>
       </div>
-
-      {/* Chat Window */}
-      {showChat && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg w-full max-w-2xl">
-            <div className="flex justify-end p-2">
-              <button 
-                onClick={() => setShowChat(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ×
-              </button>
-            </div>
-            <ChatWindow sellerId={product.seller.id} sellerName={product.seller.name} />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

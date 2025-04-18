@@ -7,20 +7,15 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
   const dashboardRef = useRef(null);
-  const notificationsRef = useRef(null);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
       if (dashboardRef.current && !dashboardRef.current.contains(event.target)) {
         setIsDashboardOpen(false);
-      }
-      if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-        setIsNotificationsOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -62,7 +57,6 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/products" className="text-gray-700 hover:text-green-600">Products</Link>
             <Link to="/sellers" className="text-gray-700 hover:text-green-600">Sellers</Link>
-            <Link to="/chats" className="text-gray-700 hover:text-green-600">Chats</Link>
             <Link to="/about" className="text-gray-700 hover:text-green-600">About</Link>
             <Link to="/contact" className="text-gray-700 hover:text-green-600">Contact</Link>
           </nav>
@@ -73,11 +67,6 @@ export function Header() {
             <Link to="/cart" className="p-2 rounded-lg hover:bg-gray-100">
               <ShoppingCart className="h-6 w-6" />
             </Link>
-
-            {/* Notifications */}
-            <div ref={notificationsRef}>
-              <Notifications />
-            </div>
 
             {/* Dashboard Dropdown */}
             <div className="relative" ref={dashboardRef}>
@@ -143,35 +132,21 @@ export function Header() {
 
             {/* Mobile Navigation */}
             <nav className="space-y-4">
-              <Link to="/products" className="block text-gray-700 hover:text-green-600">Products</Link>
-              <Link to="/sellers" className="block text-gray-700 hover:text-green-600">Sellers</Link>
-              <Link to="/chats" className="block text-gray-700 hover:text-green-600">Chats</Link>
-              <Link to="/about" className="block text-gray-700 hover:text-green-600">About</Link>
-              <Link to="/contact" className="block text-gray-700 hover:text-green-600">Contact</Link>
+              <Link to="/products" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Products</Link>
+              <Link to="/sellers" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Sellers</Link>
+              <Link to="/about" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>About</Link>
+              <Link to="/contact" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Contact</Link>
               <hr className="my-2" />
-              <Link to="/cart" className="block text-gray-700 hover:text-green-600">Cart</Link>
-              <button 
-                onClick={() => setIsNotificationsOpen(true)}
-                className="block text-gray-700 hover:text-green-600"
-              >
-                Notifications
-              </button>
-              <Link to="/retailer/dashboard" className="block text-gray-700 hover:text-green-600">Dashboard</Link>
-              <Link to="/profile" className="block text-gray-700 hover:text-green-600">Profile</Link>
-              <Link to="/settings" className="block text-gray-700 hover:text-green-600">Settings</Link>
-              <button className="block text-red-600 hover:text-red-700">Logout</button>
+              <Link to="/cart" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Cart</Link>
+              <Link to="/notifications" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Notifications</Link>
+              <Link to="/retailer/dashboard" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+              <Link to="/profile" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+              <Link to="/settings" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Settings</Link>
+              <button className="block text-red-600 hover:text-red-700" onClick={() => setIsMenuOpen(false)}>Logout</button>
             </nav>
           </div>
         )}
       </div>
-
-      {/* Mobile Notifications */}
-      {isNotificationsOpen && (
-        <Notifications 
-          isMobile={true} 
-          onClose={() => setIsNotificationsOpen(false)}
-        />
-      )}
     </header>
   );
 }

@@ -10,7 +10,6 @@ import { RegisterPage } from './pages/RegisterPage';
 import { CartPage } from './pages/CartPage';
 import { SellerProfilePage } from './pages/SellerProfilePage';
 import { SellerListingPage } from './pages/SellerListingPage';
-import { ChatPage } from './pages/ChatPage';
 import { BlogListingPage } from './pages/BlogListingPage';
 import { BlogPostPage } from './pages/BlogPostPage';
 import { SellerDashboard } from './pages/SellerDashboard';
@@ -20,7 +19,6 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { SettingsPage } from './pages/SettingsPage';
-import { ChatsPage } from './pages/ChatsPage';
 import { SearchPage } from './pages/SearchPage';
 import { NotificationsPage } from './pages/NotificationsPage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -97,7 +95,6 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/sellers" element={<SellerListingPage />} />
           <Route path="/seller/:id" element={<SellerProfilePage />} />
-          <Route path="/chat/:sellerId" element={<ChatPage />} />
           <Route path="/blog" element={<BlogListingPage />} />
           <Route path="/blog/:id" element={<BlogPostPage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -112,7 +109,6 @@ function App() {
           <Route path="/retailer/dashboard" element={<RetailerDashboard />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/chats" element={<ChatsPage />} />
           <Route path="/search" element={<SearchPage />} />
         </Route>
       </Routes>

@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ShieldCheck, Star, Package, MessageCircle, Truck, Filter, Search } from 'lucide-react';
 import { formatPrice } from '../lib/utils';
-import { ChatWindow } from '../components/chat/ChatWindow';
 
 export function SellerProfilePage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [showChat, setShowChat] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
 
   // Placeholder data - in production, this would be fetched based on the seller ID
   const seller = {
@@ -91,31 +87,8 @@ export function SellerProfilePage() {
               <span className="text-gray-600">Since {seller.joinedDate}</span>
             </div>
           </div>
-          <button 
-            onClick={() => setShowChat(true)}
-            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
-          >
-            Contact Seller
-          </button>
         </div>
       </div>
-
-      {/* Chat Window */}
-      {showChat && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg w-full max-w-2xl">
-            <div className="flex justify-end p-2">
-              <button 
-                onClick={() => setShowChat(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ×
-              </button>
-            </div>
-            <ChatWindow sellerId={seller.id} sellerName={seller.name} />
-          </div>
-        </div>
-      )}
 
       {/* Seller Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -188,12 +161,6 @@ export function SellerProfilePage() {
                 <p className="text-green-600 font-semibold">{formatPrice(product.price)}/kg</p>
                 <p className="text-sm text-gray-600 mt-2">MOQ: {product.moq} kg</p>
                 <div className="flex gap-2 mt-4">
-                  <button
-                    onClick={() => setShowChat(true)}
-                    className="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm"
-                  >
-                    Contact
-                  </button>
                   <Link
                     to={`/seller/${seller.id}`}
                     className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 text-sm text-center"

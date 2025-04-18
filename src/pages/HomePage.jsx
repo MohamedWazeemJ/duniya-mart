@@ -417,7 +417,10 @@ export function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-12">
             <h2 className="text-3xl font-bold">Top Sellers</h2>
-            <Link to="/sellers" className="text-green-600 hover:text-green-700 font-semibold">
+            <Link
+              to="/sellers"
+              className="inline-block border border-green-600 text-green-600 font-semibold px-5 py-2 rounded-lg hover:bg-green-50 transition-colors"
+            >
               View All Sellers
             </Link>
           </div>
@@ -455,6 +458,71 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Blog Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-3xl font-bold">Market Insights</h2>
+            <Link
+              to="/blog"
+              className="inline-block border border-green-600 text-green-600 font-semibold px-5 py-2 rounded-lg hover:bg-green-50 transition-colors"
+            >
+              View All Articles
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=500"
+                alt="5 Tips for First-Time Wholesale Buyers"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">5 Tips for First-Time Wholesale Buyers</h3>
+                <p className="text-gray-600 mb-4">
+                  Learn essential strategies for making your first wholesale purchase a success.
+                </p>
+                <Link to="/blog/1" className="text-green-600 hover:text-green-700 font-semibold">
+                  Read More →
+                </Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=500"
+                alt="Understanding Wholesale Pricing"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Understanding Wholesale Pricing</h3>
+                <p className="text-gray-600 mb-4">
+                  A comprehensive guide to wholesale pricing structures and how to get the best deals.
+                </p>
+                <Link to="/blog/2" className="text-green-600 hover:text-green-700 font-semibold">
+                  Read More →
+                </Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1515942400420-2b98fed1f515?auto=format&fit=crop&q=80&w=500"
+                alt="Building Supplier Relationships"
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Building Supplier Relationships</h3>
+                <p className="text-gray-600 mb-4">
+                  Discover how to build and maintain strong relationships with your suppliers.
+                </p>
+                <Link to="/blog/3" className="text-green-600 hover:text-green-700 font-semibold">
+                  Read More →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
@@ -479,8 +547,8 @@ export function HomePage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=100"
-                  alt="Shyam Traders"
+                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=200"
+                  alt="Shyam Traders Shop"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
@@ -495,8 +563,8 @@ export function HomePage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100"
-                  alt="Priya Foods"
+                  src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&q=80&w=200"
+                  alt="Priya Foods Shop"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
@@ -511,8 +579,8 @@ export function HomePage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100"
-                  alt="Amit Grocery"
+                  src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?auto=format&fit=crop&q=80&w=200"
+                  alt="Amit Grocery Shop"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
@@ -559,68 +627,6 @@ export function HomePage() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl font-bold">Market Insights</h2>
-            <Link to="/blog" className="text-green-600 hover:text-green-700 font-semibold">
-              View All Articles
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&q=80&w=500"
-                alt="5 Tips for First-Time Wholesale Buyers"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">5 Tips for First-Time Wholesale Buyers</h3>
-                <p className="text-gray-600 mb-4">
-                  Learn essential strategies for making your first wholesale purchase a success.
-                </p>
-                <Link to="/blog/first-time-wholesale-buyers" className="text-green-600 hover:text-green-700 font-semibold">
-                  Read More →
-                </Link>
-              </div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=80&w=500"
-                alt="Understanding Wholesale Pricing"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Understanding Wholesale Pricing</h3>
-                <p className="text-gray-600 mb-4">
-                  A comprehensive guide to wholesale pricing structures and how to get the best deals.
-                </p>
-                <Link to="/blog/wholesale-pricing" className="text-green-600 hover:text-green-700 font-semibold">
-                  Read More →
-                </Link>
-              </div>
-            </div>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1515942400420-2b98fed1f515?auto=format&fit=crop&q=80&w=500"
-                alt="Building Supplier Relationships"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">Building Supplier Relationships</h3>
-                <p className="text-gray-600 mb-4">
-                  Discover how to build and maintain strong relationships with your suppliers.
-                </p>
-                <Link to="/blog/supplier-relationships" className="text-green-600 hover:text-green-700 font-semibold">
-                  Read More →
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </section>
