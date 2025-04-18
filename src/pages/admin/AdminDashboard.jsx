@@ -4,11 +4,7 @@ import {
   LayoutDashboard,
   Users,
   ShoppingCart,
-<<<<<<< HEAD
-  DollarSign,
-=======
   IndianRupee,
->>>>>>> 06aec97 (Added Pages)
   Package,
   BarChart,
   MessageSquare,
@@ -31,11 +27,7 @@ const navigation = [
   { name: 'Sellers', href: '/admin/sellers', icon: Users },
   { name: 'Buyers', href: '/admin/buyers', icon: UserCog },
   { name: 'Orders', href: '/admin/orders', icon: ShoppingCart },
-<<<<<<< HEAD
-  { name: 'Transactions', href: '/admin/transactions', icon: DollarSign },
-=======
   { name: 'Transactions', href: '/admin/transactions', icon: IndianRupee },
->>>>>>> 06aec97 (Added Pages)
   { name: 'Products', href: '/admin/products', icon: Package },
   { name: 'Analytics', href: '/admin/analytics', icon: BarChart },
   { name: 'Disputes', href: '/admin/disputes', icon: AlertCircle },

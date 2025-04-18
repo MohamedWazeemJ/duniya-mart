@@ -26,8 +26,6 @@ import { NotificationsPage } from './pages/NotificationsPage';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { AdminOverview } from './pages/admin/AdminOverview';
 import { SellerManagement } from './pages/admin/SellerManagement';
-<<<<<<< HEAD
-=======
 import { BuyerManagement } from './pages/admin/BuyerManagement';
 import { OrderManagement } from './pages/admin/OrderManagement';
 import { TransactionManagement } from './pages/admin/TransactionManagement';
@@ -39,9 +37,8 @@ import { Marketing } from './pages/admin/Marketing';
 import { Reports } from './pages/admin/Reports';
 import { Settings as AdminSettings } from './pages/admin/Settings';
 import { RequireAdmin } from './components/auth/RequireAdmin';
-import { Advertise } from './pages/Advertise';
 import { BusinessSupport } from './pages/BusinessSupport';
->>>>>>> 06aec97 (Added Pages)
+import { Advertise } from './pages/Advertise';
 
 function InitialScrollHandler() {
   const location = useLocation();
@@ -60,11 +57,6 @@ function App() {
       <InitialScrollHandler />
       <Routes>
         {/* Admin Routes - Without Header and Footer */}
-<<<<<<< HEAD
-        <Route path="/admin" element={<AdminDashboard />}>
-          <Route index element={<AdminOverview />} />
-          <Route path="sellers" element={<SellerManagement />} />
-=======
         <Route path="/admin" element={
           <RequireAdmin>
             <AdminDashboard />
@@ -82,8 +74,6 @@ function App() {
           <Route path="marketing" element={<Marketing />} />
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<AdminSettings />} />
->>>>>>> 06aec97 (Added Pages)
-          {/* Add more admin routes here */}
         </Route>
 
         {/* Public and User Routes - With Header and Footer */}
@@ -114,11 +104,8 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faqs" element={<FAQPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
-<<<<<<< HEAD
-=======
-          <Route path="/advertise" element={<Advertise />} />
           <Route path="/business/support" element={<BusinessSupport />} />
->>>>>>> 06aec97 (Added Pages)
+          <Route path="/advertise" element={<Advertise />} />
 
           {/* User Dashboard Routes */}
           <Route path="/seller/dashboard" element={<SellerDashboard />} />

@@ -1,8 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Store, Mail, Lock } from 'lucide-react';
 
 export function LoginPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/admin';
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Simulate login: set user as admin
+    localStorage.setItem('user', JSON.stringify({ role: 'admin', email: 'admin@example.com' }));
+    navigate(from, { replace: true });
+  }
+
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -16,7 +27,7 @@ export function LoginPage() {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6">
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">

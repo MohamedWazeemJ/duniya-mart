@@ -1,89 +1,119 @@
 import React, { useState } from 'react';
+import { Mail, Phone, MessageCircle, Send } from 'lucide-react';
+
+const faqs = [
+  {
+    question: 'How do I contact business support?',
+    answer: 'You can reach us via email, phone, WhatsApp, or the support form below.'
+  },
+  {
+    question: 'What is the response time?',
+    answer: 'Our team typically responds within 24 hours on business days.'
+  },
+  {
+    question: 'Can I get support in Hindi or other Indian languages?',
+    answer: 'Yes, our support team can assist you in multiple Indian languages.'
+  }
+];
 
 export function BusinessSupport() {
-  const [form, setForm] = useState({ name: '', business: '', email: '', phone: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  }
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     setSubmitted(true);
-    // Here you would send the form data to your backend or email service
-  };
+    // Here you would send the form data to your backend
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-3xl mx-auto px-4">
-        {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-green-700 mb-4">Business Support</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Need help with your business on DuniyaMart? Our support team is here for you 24/7. Get answers, resolve issues, and grow your business with confidence.
-          </p>
-        </div>
-
-        {/* Support Options */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          <div className="bg-white rounded-lg shadow p-6 text-center">
-            <h3 className="text-lg font-semibold mb-2 text-green-700">FAQs</h3>
-            <p className="text-gray-600">Find answers to common business questions in our <a href="/faqs" className="text-green-600 hover:underline">FAQ section</a>.</p>
+    <div className="max-w-3xl mx-auto py-12 px-4 space-y-10">
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Support</h1>
+        <p className="text-gray-600 mb-6">Need help? Our business support team is here for you. Reach out via any of the options below or fill out the support form.</p>
+        <div className="flex flex-col sm:flex-row gap-6 mb-8">
+          <div className="flex items-center gap-2">
+            <Mail className="h-5 w-5 text-green-600" />
+            <span>support@duniyamart.in</span>
           </div>
-          <div className="bg-white rounded-lg shadow p-6 text-center">
-            <h3 className="text-lg font-semibold mb-2 text-green-700">Live Chat</h3>
-            <p className="text-gray-600">Chat with our support team for instant help (9am-9pm IST).</p>
+          <div className="flex items-center gap-2">
+            <Phone className="h-5 w-5 text-green-600" />
+            <span>+91 98765 43210</span>
           </div>
-          <div className="bg-white rounded-lg shadow p-6 text-center">
-            <h3 className="text-lg font-semibold mb-2 text-green-700">Phone Support</h3>
-            <p className="text-gray-600">Call us at <span className="font-semibold">+91-XXXXXXXXXX</span> for urgent business queries.</p>
-          </div>
-          <div className="bg-white rounded-lg shadow p-6 text-center">
-            <h3 className="text-lg font-semibold mb-2 text-green-700">Email Support</h3>
-            <p className="text-gray-600">Email us at <a href="mailto:support@duniyamart.com" className="text-green-600 hover:underline">support@duniyamart.com</a> and we'll get back within 24 hours.</p>
+          <div className="flex items-center gap-2">
+            <MessageCircle className="h-5 w-5 text-green-600" />
+            <span>WhatsApp: +91 91234 56789</span>
           </div>
         </div>
+      </div>
 
-        {/* Contact Form */}
-        <div className="bg-white rounded-lg shadow p-8">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Contact Business Support</h2>
-          {submitted ? (
-            <div className="text-green-700 text-lg font-semibold text-center py-8">
-              Thank you for reaching out! Our support team will contact you soon.
+      <div className="bg-white shadow rounded-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold mb-4">Contact Support</h2>
+        {submitted ? (
+          <div className="text-green-600 font-semibold flex items-center gap-2">
+            <Send className="h-5 w-5" />
+            Thank you! Your message has been sent.
+          </div>
+        ) : (
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input type="text" name="name" value={form.name} onChange={handleChange} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
-                  <input type="text" name="business" value={form.business} onChange={handleChange} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input type="email" name="email" value={form.email} onChange={handleChange} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} required className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea name="message" value={form.message} onChange={handleChange} required rows={4} className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
-              </div>
-              <button type="submit" className="w-full py-3 px-6 bg-green-700 text-white font-semibold rounded-lg hover:bg-green-800 transition-colors">
-                Submit Request
-              </button>
-            </form>
-          )}
-        </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                required
+                rows={4}
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
+            <button
+              type="submit"
+              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+            >
+              <Send className="h-5 w-5" />
+              Send Message
+            </button>
+          </form>
+        )}
+      </div>
+
+      <div className="bg-white shadow rounded-lg p-6">
+        <h2 className="text-xl font-semibold mb-4">Frequently Asked Questions</h2>
+        <ul className="space-y-4">
+          {faqs.map((faq, idx) => (
+            <li key={idx}>
+              <p className="font-medium text-gray-800">{faq.question}</p>
+              <p className="text-gray-600">{faq.answer}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
