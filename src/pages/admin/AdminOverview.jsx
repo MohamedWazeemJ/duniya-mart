@@ -3,7 +3,11 @@ import {
   TrendingUp,
   Users,
   ShoppingCart,
+<<<<<<< HEAD
   DollarSign,
+=======
+  IndianRupee,
+>>>>>>> 06aec97 (Added Pages)
   ArrowUpRight,
   ArrowDownRight,
   Package,
@@ -13,10 +17,17 @@ import {
 const stats = [
   {
     name: 'Total Revenue',
+<<<<<<< HEAD
     value: '$45,231.89',
     change: '+20.1%',
     changeType: 'increase',
     icon: DollarSign
+=======
+    value: '₹45,23,189',
+    change: '+20.1%',
+    changeType: 'increase',
+    icon: IndianRupee
+>>>>>>> 06aec97 (Added Pages)
   },
   {
     name: 'Active Sellers',
@@ -44,22 +55,37 @@ const stats = [
 const recentOrders = [
   {
     id: 'ORD001',
+<<<<<<< HEAD
     customer: 'John Doe',
     amount: '$299.00',
+=======
+    customer: 'Amit Kumar',
+    amount: '₹29,900',
+>>>>>>> 06aec97 (Added Pages)
     status: 'Completed',
     date: '2024-02-20'
   },
   {
     id: 'ORD002',
+<<<<<<< HEAD
     customer: 'Jane Smith',
     amount: '$199.00',
+=======
+    customer: 'Priya Sharma',
+    amount: '₹19,900',
+>>>>>>> 06aec97 (Added Pages)
     status: 'Processing',
     date: '2024-02-19'
   },
   {
     id: 'ORD003',
+<<<<<<< HEAD
     customer: 'Mike Johnson',
     amount: '$499.00',
+=======
+    customer: 'Rahul Verma',
+    amount: '₹49,900',
+>>>>>>> 06aec97 (Added Pages)
     status: 'Pending',
     date: '2024-02-18'
   }
@@ -67,19 +93,31 @@ const recentOrders = [
 
 const recentSellers = [
   {
+<<<<<<< HEAD
     name: 'Fresh Groceries Inc.',
+=======
+    name: 'Amit Traders',
+>>>>>>> 06aec97 (Added Pages)
     status: 'Pending Approval',
     products: 45,
     rating: 4.8
   },
   {
+<<<<<<< HEAD
     name: 'Organic Foods Ltd.',
+=======
+    name: 'Maharashtra Fresh',
+>>>>>>> 06aec97 (Added Pages)
     status: 'Active',
     products: 78,
     rating: 4.9
   },
   {
+<<<<<<< HEAD
     name: 'Local Market Co.',
+=======
+    name: 'Tea Valley',
+>>>>>>> 06aec97 (Added Pages)
     status: 'Active',
     products: 32,
     rating: 4.7

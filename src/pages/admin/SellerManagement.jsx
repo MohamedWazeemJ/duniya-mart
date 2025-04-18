@@ -7,7 +7,11 @@ import {
   MoreVertical,
   Star,
   Package,
+<<<<<<< HEAD
   DollarSign,
+=======
+  IndianRupee,
+>>>>>>> 06aec97 (Added Pages)
   AlertCircle
 } from 'lucide-react';
 
@@ -197,7 +201,11 @@ export function SellerManagement() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div className="flex items-center">
+<<<<<<< HEAD
                       <DollarSign className="h-4 w-4 mr-1" />
+=======
+                      <IndianRupee className="h-4 w-4 mr-1" />
+>>>>>>> 06aec97 (Added Pages)
                       {seller.totalSales}
                     </div>
                   </td>
