@@ -146,10 +146,16 @@ export function Header() {
               <hr className="my-2" />
               <Link to="/cart" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Cart</Link>
               <Link to="/notifications" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Notifications</Link>
-              <Link to="/retailer/dashboard" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
-              <Link to="/profile" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Profile</Link>
-              <Link to="/settings" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Settings</Link>
-              <button className="block text-red-600 hover:text-red-700" onClick={() => setIsMenuOpen(false)}>Logout</button>
+              {user ? (
+                <>
+                  <Link to="/retailer/dashboard" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+                  <Link to="/profile" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+                  <Link to="/settings" className="block text-gray-700 hover:text-green-600" onClick={() => setIsMenuOpen(false)}>Settings</Link>
+                  <button className="block text-red-600 hover:text-red-700" onClick={() => { setIsMenuOpen(false); handleDashboardSelect('/logout'); }}>Logout</button>
+                </>
+              ) : (
+                <Link to="/login" className="block text-green-600 hover:text-green-700 font-semibold" onClick={() => setIsMenuOpen(false)}>Login</Link>
+              )}
             </nav>
           </div>
         )}
